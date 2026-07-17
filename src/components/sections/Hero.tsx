@@ -64,29 +64,28 @@ export function Hero() {
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-[var(--color-ivory)] pt-[var(--header-h)]"
     >
       {/* --- 背景画像 ---
-          素材が縦位置のため、PCでは右側だけを画像領域にする。
-          全面に cover で敷くと顔が極端に拡大されるので、
-          「右に人物・左は余白」という参考デザインの構図をそのまま作る。 */}
+          キット公式のヒーロー素材（1586x992）。参考デザインと同じ
+          「右に人物・左はピンクのボケと花びら」の構図が最初から入っているので、
+          全面 cover で敷き、object-position で人物を右に保つ。 */}
       <div className="absolute inset-0 -z-10">
-        <div className="hero-media absolute inset-y-0 right-0 w-full scale-105 will-change-transform lg:w-[64%]">
+        <div className="hero-media absolute inset-0 scale-105 will-change-transform">
           <Image
-            src="/images/hero.jpg"
-            alt="やわらかな光のなかで微笑む女性"
+            src="/images/hero/hero.webp"
+            alt="ピンクの花びらが舞う光のなかで振り返る女性"
             fill
             // LCP要素。即時読み込みで最優先に取りにいく
             loading="eager"
             fetchPriority="high"
-            sizes="(max-width: 1024px) 100vw, 64vw"
-            // 画像は人物が左寄りなので、左右反転して右向きの構図にする
-            className="scale-x-[-1] object-cover object-[50%_18%]"
+            sizes="100vw"
+            className="object-cover object-[68%_30%]"
           />
         </div>
 
-        {/* 左のコピーを読ませるための、左だけ濃いベール。
-            PCでは画像の左端に重ねて、境目を消す */}
+        {/* 左のコピーを読ませるための薄いベール。
+            素材の左側がもともと明るいので、読みやすさの底上げ程度に留める */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[var(--color-ivory)] via-[var(--color-ivory)]/80 to-transparent lg:via-[var(--color-ivory)]/92 lg:via-40% lg:to-transparent lg:to-72%"
+          className="absolute inset-0 bg-gradient-to-r from-[var(--color-ivory)]/90 via-[var(--color-ivory)]/45 to-transparent to-70% lg:from-[var(--color-ivory)]/75 lg:via-[var(--color-ivory)]/30 lg:via-35% lg:to-transparent lg:to-60%"
         />
         {/* 上下は白に溶かして、ヘッダーと次セクションへ自然につなぐ */}
         <div

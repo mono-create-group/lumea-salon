@@ -59,7 +59,7 @@ export function ConceptSection() {
           {/* 親を overflow-hidden にして、中の画像だけを上下に動かす */}
           <div className="concept-media absolute inset-x-0 -top-[8%] h-[116%] will-change-transform">
             <Image
-              src="/images/concept.jpg"
+              src="/images/concept/interior.webp"
               alt="Luméaの店内。やわらかな照明と生花が並ぶ待合スペース"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"

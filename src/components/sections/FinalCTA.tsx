@@ -25,7 +25,7 @@ export function FinalCTA() {
 
         <div className="absolute inset-y-0 left-0 w-[42%] sm:w-[34%] lg:w-[26%]">
           <Image
-            src="/images/cta.jpg"
+            src="/images/cta.webp"
             alt=""
             // 純粋な装飾なので読み上げ対象から外す
             aria-hidden="true"

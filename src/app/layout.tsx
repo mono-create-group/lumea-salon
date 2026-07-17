@@ -44,7 +44,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const pageTitle = `${site.name}（ルメア）| 神宮前のエステ・マツエク・ネイルサロン`;
+const pageTitle = `${site.name}（ルメア）| エステ・マツエク・ネイルのトータルビューティーサロン`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -59,9 +59,6 @@ export const metadata: Metadata = {
     "まつげエクステ",
     "ネイル",
     "ビューティーサロン",
-    "神宮前",
-    "表参道",
-    "原宿",
     "完全個室",
   ],
   alternates: { canonical: "/" },
@@ -74,7 +71,7 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: "/images/hero.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: `${site.name} — 私史上、最高のわたしへ。`,
@@ -85,10 +82,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: pageTitle,
     description: site.description,
-    images: ["/images/hero.jpg"],
+    images: ["/og-image.jpg"],
   },
   // 架空サロンのデモ。検索に載せると実在店舗と誤認されるため noindex で公開する
   robots: { index: false, follow: false },
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export const viewport: Viewport = {

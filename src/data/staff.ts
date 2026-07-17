@@ -54,7 +54,7 @@ export const staff: StaffMember[] = [
         "励みです。",
       ],
     ],
-    image: "/images/staff-1.jpg",
+    image: "/images/staff/staff-01.webp",
     imageAlt: "エステティシャンの小林花菜の写真",
   },
   {
@@ -93,7 +93,7 @@ export const staff: StaffMember[] = [
         "思っています。",
       ],
     ],
-    image: "/images/staff-2.jpg",
+    image: "/images/staff/staff-02.webp",
     imageAlt: "アイリストの青木美咲の写真",
   },
   {
@@ -132,7 +132,7 @@ export const staff: StaffMember[] = [
         "見てきました。",
       ],
     ],
-    image: "/images/staff-3.jpg",
+    image: "/images/staff/staff-03.webp",
     imageAlt: "ネイリストの田村由衣の写真",
   },
 ];

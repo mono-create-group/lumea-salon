@@ -20,7 +20,7 @@ export const site = {
   tagline: "beauty salon",
   description:
     "エステ・マツエク・ネイルの3つを1か所で。トータルビューティーサロン Luméa（ルメア）。完全個室・オーダーメイド施術で、あなたらしい美しさを一緒に育てます。24時間WEB予約OK。",
-  url: "https://lumea-salon.example.com",
+  url: "https://mono-create-group.github.io/lumea-salon",
   locale: "ja_JP",
 
   /** 実在番号へ発信させないためのダミー表記 */

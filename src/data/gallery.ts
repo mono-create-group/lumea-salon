@@ -1,6 +1,7 @@
 /**
  * ギャラリーとInstagram。
  * gallery の span でグリッドにリズムをつける（全部同じ大きさにしない）。
+ * 画像は実装キット（salon-demo-kit）の公式素材。
  */
 
 export type GalleryItem = {
@@ -11,19 +12,19 @@ export type GalleryItem = {
 };
 
 export const galleryItems: GalleryItem[] = [
-  { src: "/images/gallery-1.jpg", alt: "Luméaの施術スペース。鏡と間接照明が並ぶ", span: "wide" },
-  { src: "/images/gallery-2.jpg", alt: "窓辺に飾られたドライフラワー", span: "normal" },
-  { src: "/images/gallery-3.jpg", alt: "完全個室のトリートメントルーム", span: "normal" },
-  { src: "/images/gallery-4.jpg", alt: "ネイル施術中の手元", span: "normal" },
-  { src: "/images/gallery-5.jpg", alt: "受付に並ぶスキンケア商材", span: "wide" },
-  { src: "/images/gallery-6.jpg", alt: "待合スペースに生けられた花", span: "normal" },
+  { src: "/images/gallery/interior-detail.webp", alt: "アーチ窓と間接照明が並ぶLuméaの店内", span: "wide" },
+  { src: "/images/gallery/flowers.webp", alt: "受付に生けられた季節の花", span: "normal" },
+  { src: "/images/gallery/nail-detail.webp", alt: "淡いピンクに仕上げたネイルの手元", span: "normal" },
+  { src: "/images/gallery/eyelash-detail.webp", alt: "マツエクを施した目元のクローズアップ", span: "normal" },
+  { src: "/images/gallery/skincare.webp", alt: "施術に使うスキンケア商材", span: "wide" },
+  { src: "/images/gallery/esthe-detail.webp", alt: "フェイシャルエステの施術風景", span: "normal" },
 ];
 
 export const instagramPosts: { src: string; alt: string }[] = [
-  { src: "/images/instagram-1.jpg", alt: "Instagram投稿: 今週のネイルデザイン" },
-  { src: "/images/instagram-2.jpg", alt: "Instagram投稿: マツエクの仕上がり" },
-  { src: "/images/instagram-3.jpg", alt: "Instagram投稿: フェイシャルケアの様子" },
-  { src: "/images/instagram-4.jpg", alt: "Instagram投稿: サロンの店内" },
-  { src: "/images/instagram-5.jpg", alt: "Instagram投稿: 使用しているスキンケア商材" },
-  { src: "/images/instagram-6.jpg", alt: "Instagram投稿: 季節の装花" },
+  { src: "/images/staff/staff-01.webp", alt: "Instagram投稿: スタッフの紹介" },
+  { src: "/images/gallery/nail-detail.webp", alt: "Instagram投稿: 今週のネイルデザイン" },
+  { src: "/images/gallery/eyelash-detail.webp", alt: "Instagram投稿: マツエクの仕上がり" },
+  { src: "/images/gallery/esthe-detail.webp", alt: "Instagram投稿: フェイシャルケアの様子" },
+  { src: "/images/gallery/interior-detail.webp", alt: "Instagram投稿: サロンの店内" },
+  { src: "/images/gallery/flowers.webp", alt: "Instagram投稿: 季節の装花" },
 ];
