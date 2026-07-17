@@ -1,0 +1,68 @@
+/* =========================================================
+   Luméa Design Tokens
+   参考デザインから抽出した配色・タイポ・余白の単一ソース。
+   色を変えるときはこのファイルだけを編集する。
+   ========================================================= */
+
+@theme {
+  /* ---- ベースカラー（白・アイボリー・ベージュ） ---- */
+  --color-ivory: #fdf9f6;
+  --color-ivory-deep: #f9f1ea;
+  --color-cream: #fffdfb;
+  --color-beige: #efe2d6;
+  --color-beige-deep: #e0ccbb;
+
+  /* ---- 淡いピンク（ブラッシュ） ---- */
+  --color-blush-50: #fdf3f2;
+  --color-blush-100: #fae9e7;
+  --color-blush-200: #f5d9d6;
+  --color-blush-300: #eebfbd;
+
+  /* ---- ローズ（主要アクション色） ---- */
+  --color-rose-400: #dfa0a4;
+  --color-rose-500: #d4868d;
+  --color-rose-600: #c26f78;
+  --color-rose-700: #a85862;
+
+  /* ---- ゴールド（アクセント・英字装飾） ---- */
+  --color-gold-300: #e3cba2;
+  --color-gold-400: #d2ae7c;
+  --color-gold-500: #bd9153;
+  --color-gold-600: #a3763c;
+
+  /* ---- テキスト ---- */
+  --color-ink: #3d3330;
+  --color-ink-soft: #6b5c56;
+  --color-ink-mute: #94827b;
+
+  /* ---- フォント ---- */
+  --font-mincho: var(--font-shippori), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-gothic: var(--font-noto-sans-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-script: var(--font-parisienne), cursive;
+  --font-serif-en: var(--font-cormorant), "Times New Roman", serif;
+
+  /* ---- 影（薄く・広く） ---- */
+  --shadow-soft: 0 4px 24px -6px rgb(160 120 110 / 0.14);
+  --shadow-lift: 0 18px 42px -14px rgb(160 120 110 / 0.26);
+  --shadow-panel: 0 2px 18px -4px rgb(160 120 110 / 0.10);
+
+  /* ---- イージング（高級感＝ゆっくり滑らかに） ---- */
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ---- セクション余白 ---- */
+  --spacing-section: 7.5rem;
+}
+
+:root {
+  /* ヘッダー高さ。scroll-margin と固定ヘッダーで共有する */
+  --header-h: 76px;
+  /* スマホ下部固定CTAの高さ（本文末尾の余白確保に使う） */
+  --mobile-cta-h: 64px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 88px;
+    --mobile-cta-h: 0px;
+  }
+}

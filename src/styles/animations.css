@@ -1,0 +1,96 @@
+/* =========================================================
+   アニメーション定義
+   GSAP が担当しない「常時ループ系」と、GSAP到達前の初期状態をここに置く。
+   prefers-reduced-motion は globals.css で一括停止する。
+   ========================================================= */
+
+/* ---- 花びらの漂い ----
+   translateX/rotate はインラインの CSS 変数で個体差をつける */
+@keyframes petal-drift {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--petal-opacity, 0.55);
+  }
+  92% {
+    opacity: var(--petal-opacity, 0.55);
+  }
+  100% {
+    transform: translate3d(var(--petal-drift, 60px), 108vh, 0)
+      rotate(var(--petal-spin, 220deg));
+    opacity: 0;
+  }
+}
+
+.petal {
+  animation: petal-drift var(--petal-duration, 18s) linear
+    var(--petal-delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+/* ---- 光のゆらぎ（ヒーロー・CTAのボケ光） ---- */
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+.glow-breathe {
+  animation: glow-breathe 9s ease-in-out infinite;
+}
+
+/* ---- GSAP に渡す要素の初期状態 ----
+   既定は「見えている」。GSAPが実際に読み込めた場合(html.gsap-ready)にだけ
+   透明にする。こうしないと、JSが落ちた/rAFが止まった環境で本文が
+   永久に消えたままになる。 */
+html.gsap-ready .reveal-init {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+
+/* ---- ヒーローの入場 ----
+   ファーストビューはJSに依存させない（LCP要素をJSで隠さない）。
+   CSSだけで完結させ、GSAPはスクロール連動の演出だけに使う。 */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 1.1s var(--ease-silk) forwards;
+  animation-delay: var(--rise-delay, 0s);
+}
+
+/* ---- スクロールダウン誘導 ---- */
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+.scroll-hint::after {
+  animation: scroll-hint 2.2s var(--ease-silk) infinite;
+}

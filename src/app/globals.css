@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/animations.css";
+
+/* =========================================================
+   グローバル基礎スタイル
+   セクション固有の見た目は各コンポーネントに置く。ここは土台だけ。
+   ========================================================= */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* 固定ヘッダーにアンカー見出しが潜り込まないようにする */
+    scroll-padding-top: var(--header-h);
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-gothic);
+    font-feature-settings: "palt" 1;
+    letter-spacing: 0.04em;
+    line-height: 1.9;
+    /* 日本語は文節単位の <wbr> だけで折る（社内ルール） */
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.06em;
+  }
+
+  /* キーボード操作時のみフォーカスリングを出す */
+  :focus-visible {
+    outline: 2px solid var(--color-rose-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-blush-200);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* 中身の最大幅。全セクションで共有する */
+  .container-lumea {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-lumea {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* 英字の筆記体装飾（Be your true self / Concept など） */
+  .script {
+    font-family: var(--font-script);
+    color: var(--color-gold-500);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  /* 背景に大きく薄く敷く連番（01, 02 …） */
+  .section-number {
+    font-family: var(--font-serif-en);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-gold-400);
+    line-height: 1;
+  }
+
+  /* ぼかしガラスのパネル */
+  .glass {
+    background: rgb(255 253 251 / 0.72);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  }
+}
+
+@layer utilities {
+  .leading-jp {
+    line-height: 2.1;
+  }
+}
+
+/* =========================================================
+   モーション設定を尊重する（アクセシビリティ必須要件）
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* GSAP/CSSアニメを動かさない前提なので、隠れたままにしない。
+     .gallery-tile は gsap.from() がインラインで opacity:0 を書くので、
+     ここで !important で確実に打ち消す（reduced時にギャラリーが消える不具合の対策）。 */
+  html.gsap-ready .reveal-init,
+  html.gsap-ready .reveal-init > *,
+  .gallery-tile,
+  .hero-rise {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .petal {
+    display: none;
+  }
+}
