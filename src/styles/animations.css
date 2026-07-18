@@ -76,6 +76,36 @@ html.gsap-ready .reveal-init {
   animation-delay: var(--rise-delay, 0s);
 }
 
+/* ---- 横スワイプ誘導（SwipeHint）----
+   左右の山括弧が外側へ小さく誘う。reduced-motion では globals.css が止める */
+@keyframes swipe-nudge-l {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes swipe-nudge-r {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.swipe-nudge-l {
+  animation: swipe-nudge-l 1.6s var(--ease-silk) infinite;
+}
+
+.swipe-nudge-r {
+  animation: swipe-nudge-r 1.6s var(--ease-silk) infinite;
+}
+
 /* ---- スクロールダウン誘導 ---- */
 @keyframes scroll-hint {
   0% {

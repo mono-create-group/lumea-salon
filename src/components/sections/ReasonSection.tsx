@@ -2,6 +2,7 @@ import { HandHeart, Sparkles, ClipboardList, Armchair, HeartHandshake } from "lu
 import type { LucideIcon } from "lucide-react";
 import { reasons, type ReasonIcon } from "@/data/reasons";
 import { Reveal } from "@/components/ui/Reveal";
+import { SwipeHint } from "@/components/ui/SwipeHint";
 import { PetalAnimation } from "@/components/ui/PetalAnimation";
 import { site } from "@/data/site";
 
@@ -44,12 +45,16 @@ export function ReasonSection() {
           </div>
         </Reveal>
 
-        {/* スマホは横スクロール、PCは5列グリッド */}
-        <Reveal
-          as="ul"
-          stagger={0.1}
-          className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-auto md:max-w-[1200px] md:grid md:grid-cols-5 md:gap-2 md:overflow-visible md:px-10 md:pb-0"
-        >
+        {/* スマホは横スクロール、PCは5列グリッド。
+            横に続きがあることはスクロールバーだけでは伝わらないので、
+            スマホには SwipeHint を重ねる（初回スワイプで消える） */}
+        <div className="relative">
+          <SwipeHint />
+          <Reveal
+            as="ul"
+            stagger={0.1}
+            className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-auto md:max-w-[1200px] md:grid md:grid-cols-5 md:gap-2 md:overflow-visible md:px-10 md:pb-0"
+          >
           {reasons.map((reason, index) => {
             const Icon = iconMap[reason.icon];
             return (
@@ -88,7 +93,8 @@ export function ReasonSection() {
               </li>
             );
           })}
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
