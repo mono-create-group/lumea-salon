@@ -110,7 +110,8 @@ export function ConceptSection() {
                 引き出す
                 <wbr />
                 トータルビューティーサロンです。
-                <br className="hidden sm:block" />
+                {/* 句点の後は必ず改行(会長ルール)。スマホでも消さない */}
+                <br />
                 忙しい
                 <wbr />
                 日常を忘れ、

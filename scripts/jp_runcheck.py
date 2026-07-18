@@ -7,6 +7,11 @@
 実際に描画される out/**/*.html を対象にする。<wbr> はタグとしてテキストを
 分断するので、タグ間のテキストをそのまま測ればよい。
 
+検査は2種類:
+  A) <wbr> も句読点も無い長い日本語の塊（keep-allで折り返せず、はみ出す）
+  B) 文中の「。」の後に改行(<br>)が無い（会長ルール: 1文ごとに改行。
+     テキストノード内の「。」の後に文字が続いていたら違反）
+
 使い方: python3 scripts/jp_runcheck.py out
 1件でも違反があれば exit 1（ビルドゲートとして使う）。
 """
@@ -35,14 +40,31 @@ def check(path: str) -> list[str]:
     html = re.sub(r"<style\b.*?</style>", " ", html, flags=re.S | re.I)
 
     out = []
-    # タグでテキストノードに分割（<wbr>もここで塊を切る）
-    for text in TAG.split(html):
+    # <wbr> はタグ分割でテキストを切るが、A判定では「折り返し機会」、
+    # B判定では「改行ではない」ので扱いが違う。Bは<wbr>を透過して文を見る。
+    texts = TAG.split(html)
+    for text in texts:
         for run in BREAKABLE.split(text):
             run = run.strip()
             # 電話番号など記号・数字主体の塊は折り返し機会(ハイフン等)が
             # あるので対象外。日本語が6文字以上つながるものだけ見る
             if len(run) >= LIMIT and len(HAS_JP.findall(run)) >= 6:
-                out.append(run)
+                out.append(f"A:「{run}」({len(run)}文字・<wbr>なし)")
+
+    # B) 文中の句点。<br>はタグとしてテキストを切るので、
+    #    「。」の直後に同じテキストノード内で文字が続く＝改行なしで文が続いている。
+    #    <wbr>だけはタグでも「改行」ではないため、いったん除去して連結して判定する。
+    #    CSSで消える <br class="hidden …"> も改行と見なさない
+    #    （モバイルだけ文が流れる事故の温床。実際にConceptで発生）
+    joined = re.sub(r"<wbr\s*/?>", "", html)
+    joined = re.sub(r"<br[^>]*hidden[^>]*/?>", "", joined)
+    for text in TAG.split(joined):
+        t = text.strip()
+        for m in re.finditer(r"。(?!\s*$)", t):
+            after = t[m.end():].strip()
+            if after and HAS_JP.search(after):
+                snippet = t[max(0, m.start() - 10): m.end() + 10].strip()
+                out.append(f"B:「…{snippet}…」(。の後に改行なし)")
     return out
 
 
@@ -55,13 +77,13 @@ def main() -> int:
 
     bad = 0
     for f in files:
-        for run in check(f):
-            print(f"NG {f}: 「{run}」({len(run)}文字・<wbr>なし)")
+        for v in check(f):
+            print(f"NG {f}: {v}")
             bad += 1
     if bad:
-        print(f"\n違反 {bad} 件。文節に <wbr> を入れるか <JpText> を使ってください。")
+        print(f"\n違反 {bad} 件。A=文節<wbr>を入れる / B=。の後に<br>（JpTextなら自動）")
         return 1
-    print(f"OK: {len(files)}ファイル、折り返し不能な長い日本語なし")
+    print(f"OK: {len(files)}ファイル、A(はみ出し)・B(句点改行)とも違反なし")
     return 0
 
 
