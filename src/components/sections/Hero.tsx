@@ -179,7 +179,9 @@ export function Hero() {
 
           <p className="hero-line hero-rise mt-7 text-[0.94rem] leading-[2.2] text-[var(--color-ink-soft)] sm:text-[1.02rem]"
             style={{ "--rise-delay": "0.32s" } as React.CSSProperties}>
-            エステ・マツエク・ネイルで叶える
+            エステ・マツエク・ネイルで
+            <wbr />
+            叶える
             <br />
             新しい自分との出会い
           </p>

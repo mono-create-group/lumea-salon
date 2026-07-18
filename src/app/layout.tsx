@@ -110,11 +110,22 @@ export default function RootLayout({
             「開いたらヒーロー以外に飛ばされる」ように見える問題の対策。
             復元を無効化し、ハッシュ無しで開いたときは必ず先頭から見せる。
             （bfcache復帰も pageshow で同様に先頭へ戻す） */}
+        {/* iOS Safariは scrollRestoration=manual を無視して読み込み完了後に
+            前回位置へ復元することがある。load後1.2秒まで先頭へ引き戻し続け、
+            ユーザーが触った瞬間にやめる（操作とは競合しない） */}
         <script
           dangerouslySetInnerHTML={{
             __html:
+              "(function(){" +
               "try{history.scrollRestoration='manual'}catch(e){}" +
-              "addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});",
+              "if(location.hash)return;" +
+              "var stop=false;" +
+              "['touchstart','wheel','keydown','pointerdown'].forEach(function(t){addEventListener(t,function(){stop=true},{once:true,passive:true})});" +
+              "function kick(){if(!stop)scrollTo(0,0)}" +
+              "addEventListener('pageshow',kick);" +
+              "addEventListener('load',function(){kick();[80,250,600,1200].forEach(function(ms){setTimeout(kick,ms)})});" +
+              "kick();" +
+              "})();",
           }}
         />
         <StructuredData />

@@ -154,7 +154,7 @@ export default function PrivacyPage() {
 
           <p className="mt-8 max-w-2xl text-[0.84rem] leading-jp text-[var(--color-ink-soft)]">
             {site.name}
-            は、お客様からお預かりする個人情報を、以下のとおり取り扱います。
+            は、お客様から<wbr />お預かりする<wbr />個人情報を、<wbr />以下のとおり<wbr />取り扱います。
           </p>
 
           <div className="mt-10 max-w-2xl">

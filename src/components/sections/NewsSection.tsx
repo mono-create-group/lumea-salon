@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { newsItems, categoryLabel, type NewsCategory } from "@/data/news";
+import { JpText } from "@/components/ui/JpText";
 import { Reveal } from "@/components/ui/Reveal";
 import { ctaAttrs } from "@/lib/cta";
 
@@ -45,7 +46,7 @@ export function NewsSection() {
 
         <Reveal as="ul" stagger={0.1} className="mt-7">
           {newsItems.map((item) => (
-            <li key={item.title}>
+            <li key={item.dateTime}>
               <Link
                 href={item.href}
                 className={`group flex flex-wrap items-center gap-x-3.5 gap-y-2 border-b border-[var(--color-beige-deep)]/35 px-2 py-4 transition-colors duration-400 hover:bg-white/60 ${
@@ -67,7 +68,7 @@ export function NewsSection() {
                 </span>
 
                 <span className="flex-1 text-[0.84rem] leading-[1.9] text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-rose-600)]">
-                  {item.title}
+                  <JpText phrases={item.title} />
                 </span>
 
                 <ArrowRight

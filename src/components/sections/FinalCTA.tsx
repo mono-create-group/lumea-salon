@@ -50,7 +50,13 @@ export function FinalCTA() {
               id="cta-title"
               className="text-[1.35rem] leading-[2] text-white drop-shadow-[0_1px_10px_rgba(120,70,70,0.35)] md:text-[1.75rem]"
             >
-              あなたの「なりたい」を叶える第一歩を、
+              あなたの
+              <wbr />
+              「なりたい」を
+              <wbr />
+              叶える
+              <wbr />
+              第一歩を、
               <br />
               <span className="font-[family-name:var(--font-cormorant)] text-[1.6em] leading-none tracking-wide">
                 {site.name}

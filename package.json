@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:jp": "python3 scripts/jp_runcheck.py out"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

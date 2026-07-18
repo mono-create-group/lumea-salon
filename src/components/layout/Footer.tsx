@@ -49,7 +49,7 @@ export function Footer() {
             </dl>
 
             <p className="mt-4 text-[0.72rem] leading-[2] text-[var(--color-ink-mute)]">
-              {site.access}
+              <JpText phrases={site.access} />
             </p>
           </div>
 

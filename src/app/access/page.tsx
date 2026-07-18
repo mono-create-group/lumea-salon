@@ -74,7 +74,7 @@ export default function AccessPage() {
                 {site.address.street}
               </address>
               <p className="mt-3 text-[0.78rem] leading-jp text-[var(--color-ink-soft)]">
-                {site.access}
+                <JpText phrases={site.access} />
               </p>
             </div>
 
