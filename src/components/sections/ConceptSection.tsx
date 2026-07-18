@@ -20,6 +20,8 @@ export function ConceptSection() {
   useGSAP(
     () => {
       if (reduced) return;
+      // スマホではparallaxを切る（スクロール中の毎フレーム変形が重い）
+      if (!window.matchMedia("(min-width: 768px)").matches) return;
 
       // 画像だけを遅れて動かす＝奥行きが出る
       gsap.fromTo(

@@ -80,11 +80,20 @@
     line-height: 1;
   }
 
-  /* ぼかしガラスのパネル */
+  /* ぼかしガラスのパネル。
+     スマホでは backdrop-filter を使わない: 固定ヘッダー/下部CTAバーが
+     スクロールの毎フレーム背景をぼかし直し、iOSのカクつきの主因になる。
+     かわりに不透明度を上げて可読性を保つ */
   .glass {
-    background: rgb(255 253 251 / 0.72);
-    backdrop-filter: blur(14px) saturate(1.1);
-    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    background: rgb(255 253 251 / 0.94);
+  }
+
+  @media (min-width: 1024px) {
+    .glass {
+      background: rgb(255 253 251 / 0.72);
+      backdrop-filter: blur(14px) saturate(1.1);
+      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    }
   }
 }
 

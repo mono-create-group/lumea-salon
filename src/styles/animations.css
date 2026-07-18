@@ -30,6 +30,14 @@
   will-change: transform, opacity;
 }
 
+/* スマホは常時アニメの合成レイヤーを半分に間引く（カクつき対策・キット仕様）。
+   偶数番目を消すだけなので見た目の分布は保たれる */
+@media (max-width: 767px) {
+  .petal:nth-child(even) {
+    display: none;
+  }
+}
+
 /* ---- 光のゆらぎ（ヒーロー・CTAのボケ光） ---- */
 @keyframes glow-breathe {
   0%,

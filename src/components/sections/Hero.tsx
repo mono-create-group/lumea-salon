@@ -66,6 +66,9 @@ export function Hero() {
   useGSAP(
     () => {
       if (reduced) return;
+      // スマホではスクロール連動の変形を切る（毎フレームの再合成が
+      // カクつきの主因になるため。入場アニメはCSSなので影響なし）
+      if (!window.matchMedia("(min-width: 768px)").matches) return;
 
       // 画像はスクロールに合わせてゆっくり引く（scrub で手動送り感を出す）
       gsap.to(".hero-media", {
@@ -130,7 +133,7 @@ export function Hero() {
           {showVideo ? (
             <video
               ref={startVideo}
-              className="hero-video absolute inset-0 h-full w-full object-cover object-[68%_30%]"
+              className="hero-video pointer-events-none absolute inset-0 h-full w-full object-cover object-[68%_30%]"
               autoPlay
               muted
               loop
@@ -161,7 +164,9 @@ export function Hero() {
         {/* ふわっとした光 */}
         <div
           aria-hidden="true"
-          className="glow-breathe absolute top-1/4 left-1/3 h-[46vmax] w-[46vmax] rounded-full bg-[radial-gradient(circle,rgba(255,240,238,0.85),transparent_66%)] blur-2xl"
+          // blur-2xl は46vmaxの巨大レイヤーを毎フレーム合成させて重い。
+          // 元がラジアルグラデーションなので、フィルタ無しでもほぼ同じ見た目
+          className="glow-breathe absolute top-1/4 left-1/3 h-[46vmax] w-[46vmax] rounded-full bg-[radial-gradient(circle,rgba(255,240,238,0.85),transparent_66%)]"
         />
       </div>
 
@@ -212,7 +217,7 @@ export function Hero() {
                   >
                     <Link
                       href={service.href}
-                      className="group flex aspect-square w-[6.2rem] flex-col items-center justify-center rounded-full border border-white/70 bg-white/85 shadow-[var(--shadow-soft)] backdrop-blur-md transition-all duration-500 ease-[var(--ease-silk)] hover:-translate-y-1.5 hover:bg-white hover:shadow-[var(--shadow-lift)] sm:w-[7.5rem]"
+                      className="group flex aspect-square w-[6.2rem] flex-col items-center justify-center rounded-full border border-white/70 bg-white/90 shadow-[var(--shadow-soft)] lg:bg-white/85 lg:backdrop-blur-md transition-all duration-500 ease-[var(--ease-silk)] hover:-translate-y-1.5 hover:bg-white hover:shadow-[var(--shadow-lift)] sm:w-[7.5rem]"
                     >
                       <Icon className="h-7 w-7 text-[var(--color-rose-400)] transition-colors duration-500 group-hover:text-[var(--color-rose-600)] sm:h-8 sm:w-8" />
                       <span className="script mt-1 text-[1.15rem] leading-none sm:text-[1.3rem]">
