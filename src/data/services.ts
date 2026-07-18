@@ -29,7 +29,7 @@ export const services: Service[] = [
     priceFrom: "¥8,800〜",
     image: "/images/services/esthe.webp",
     imageAlt: "フェイシャルエステの施術を受ける女性",
-    href: "#menu-esthe",
+    href: "/menu#esthe",
   },
   {
     id: "eyelash",
@@ -39,7 +39,7 @@ export const services: Service[] = [
     priceFrom: "¥6,600〜",
     image: "/images/services/eyelash.webp",
     imageAlt: "まつげエクステンションを施した目元のクローズアップ",
-    href: "#menu-eyelash",
+    href: "/menu#eyelash",
   },
   {
     id: "nail",
@@ -49,6 +49,6 @@ export const services: Service[] = [
     priceFrom: "¥7,700〜",
     image: "/images/services/nail.webp",
     imageAlt: "淡いピンクのネイルを施した手元",
-    href: "#menu-nail",
+    href: "/menu#nail",
   },
 ];

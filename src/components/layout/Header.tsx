@@ -29,7 +29,7 @@ export function Header() {
       >
         <div className="container-lumea flex h-full items-center justify-between gap-6">
           <Link
-            href="#home"
+            href="/"
             aria-label={`${site.name} ホームへ`}
             className="shrink-0"
           >
@@ -62,7 +62,7 @@ export function Header() {
 
           <div className="flex shrink-0 items-center gap-3">
             {/* PCの予約ボタン */}
-            <a
+            <Link
               href={site.reserveUrl}
               {...ctaAttrs("reserve", "header")}
               className="hidden items-center gap-2.5 rounded-full bg-gradient-to-r from-[var(--color-rose-400)] to-[var(--color-rose-600)] px-6 py-2.5 text-white shadow-[var(--shadow-soft)] transition-all duration-500 ease-[var(--ease-silk)] hover:shadow-[var(--shadow-lift)] hover:brightness-105 lg:flex"
@@ -76,7 +76,7 @@ export function Header() {
                   24時間WEB予約OK
                 </span>
               </span>
-            </a>
+            </Link>
 
             {/* スマホのハンバーガー */}
             <button

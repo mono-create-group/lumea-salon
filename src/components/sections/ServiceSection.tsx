@@ -56,7 +56,7 @@ export function ServiceSection() {
 
             <Reveal delay={0.16}>
               <ButtonLink
-                href="#menu"
+                href="/menu"
                 action="nav"
                 location="menu-heading"
                 withArrow
@@ -70,7 +70,7 @@ export function ServiceSection() {
           {/* --- カード3枚 --- */}
           <Reveal as="ul" stagger={0.14} className="grid gap-5 sm:grid-cols-3">
             {services.map((service) => (
-              <li key={service.id} id={service.href.replace("#", "")}>
+              <li key={service.id} id={`menu-${service.id}`}>
                 <Link
                   href={service.href}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white/90 shadow-[var(--shadow-soft)] transition-all duration-600 ease-[var(--ease-silk)] hover:-translate-y-2 hover:shadow-[var(--shadow-lift)]"

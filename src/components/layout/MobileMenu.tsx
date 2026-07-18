@@ -130,30 +130,30 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
 
             {/* 予約導線はメニュー内でも最下部に必ず置く */}
             <div className="mt-auto flex flex-col gap-3 px-6 pb-8">
-              <a
+              <Link
                 href={site.reserveUrl}
                 {...ctaAttrs("reserve", "mobile-menu")}
                 className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-rose-400)] to-[var(--color-rose-600)] py-4 text-white shadow-[var(--shadow-soft)]"
               >
                 <CalendarCheck aria-hidden="true" className="h-4 w-4" />
                 <span className="text-sm tracking-[0.1em]">WEBで予約する</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href={site.lineUrl}
                 {...ctaAttrs("line", "mobile-menu")}
                 className="flex items-center justify-center gap-2 rounded-full border border-[#06C755] py-4 text-[#06C755]"
               >
                 <LineIcon className="h-4 w-4" />
                 <span className="text-sm tracking-[0.1em]">LINEで予約する</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href={site.telHref}
                 {...ctaAttrs("tel", "mobile-menu")}
                 className="flex items-center justify-center gap-2 rounded-full border border-[var(--color-beige-deep)] py-4 text-[var(--color-ink-soft)]"
               >
                 <Phone aria-hidden="true" className="h-4 w-4" />
                 <span className="text-sm tracking-[0.1em]">{site.tel}</span>
-              </a>
+              </Link>
             </div>
           </motion.div>
         </motion.div>

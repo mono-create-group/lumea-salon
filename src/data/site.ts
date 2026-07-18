@@ -72,20 +72,27 @@ export const site = {
   ],
 } as const;
 
-/** ヘッダー / フッター共通のナビゲーション */
+/**
+ * ヘッダー / フッター共通のナビゲーション。
+ *
+ * MENU・GALLERY・ACCESS は下層ページを持つため絶対パスにする。
+ * CONCEPT・BLOG はトップページ内のセクションなので "/#id" にして、
+ * 下層ページから踏んでも一度トップへ戻ってからそのセクションへ着地させる
+ * （下層ページで裸の "#id" を使うと、リンク先が存在せず何も起きない）。
+ */
 export const navLinks = [
-  { label: "HOME", href: "#home" },
-  { label: "CONCEPT", href: "#concept" },
-  { label: "MENU", href: "#menu" },
-  { label: "GALLERY", href: "#gallery" },
+  { label: "HOME", href: "/" },
+  { label: "CONCEPT", href: "/#concept" },
+  { label: "MENU", href: "/menu" },
+  { label: "GALLERY", href: "/gallery" },
   { label: "STAFF", href: "/staff" },
-  { label: "ACCESS", href: "#access" },
-  { label: "BLOG", href: "#blog" },
+  { label: "ACCESS", href: "/access" },
+  { label: "BLOG", href: "/#blog" },
 ] as const;
 
 /** フッターの補助リンク（ナビに載せないもの） */
 export const subLinks = [
-  { label: "Q&A", href: "#reason" },
+  { label: "Q&A", href: "/#reason" },
   { label: "CONTACT", href: DEMO_CONTACT },
   { label: "プライバシーポリシー", href: "/privacy" },
 ] as const;
