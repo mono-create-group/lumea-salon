@@ -106,6 +106,17 @@ export default function RootLayout({
       className={`${shippori.variable} ${notoSansJp.variable} ${parisienne.variable} ${cormorant.variable} antialiased`}
     >
       <body className="min-h-screen overflow-x-hidden">
+        {/* 再読み込み時にブラウザが前回のスクロール位置へ復元し、
+            「開いたらヒーロー以外に飛ばされる」ように見える問題の対策。
+            復元を無効化し、ハッシュ無しで開いたときは必ず先頭から見せる。
+            （bfcache復帰も pageshow で同様に先頭へ戻す） */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{history.scrollRestoration='manual'}catch(e){}" +
+              "addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});",
+          }}
+        />
         <StructuredData />
         <a
           href="#main"
