@@ -1,0 +1,4 @@
+:HL["/lumea-salon/_next/static/chunks/2legxpee4igum.css","style"]
+:HL["/lumea-salon/_next/static/chunks/31y2vttw5alol.css","style"]
+:HL["/lumea-salon/_next/static/chunks/2fm8j76bcp_km.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"PpptIsj3hTE5c60OZY4Hp"}
