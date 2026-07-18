@@ -1,13 +1,37 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { asset } from "@/lib/asset";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { services } from "@/data/services";
 import { serviceIcons } from "@/components/ui/ServiceIcons";
 import { PetalAnimation } from "@/components/ui/PetalAnimation";
+
+/** navigator.connection は型定義に無いブラウザ拡張なので最小限だけ切り出す */
+type ConnectionInfo = { saveData?: boolean };
+
+const DESKTOP_QUERY = "(min-width: 1024px)";
+
+function subscribeDesktop(onChange: () => void): () => void {
+  const query = window.matchMedia(DESKTOP_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+/** PC幅かつ省データ設定でないときだけ true。SSR/ハイドレート時は false */
+function getDesktopSnapshot(): boolean {
+  const connection = (navigator as Navigator & { connection?: ConnectionInfo })
+    .connection;
+  if (connection?.saveData) return false;
+  return window.matchMedia(DESKTOP_QUERY).matches;
+}
+
+function getServerSnapshot(): boolean {
+  return false;
+}
 
 /**
  * ファーストビュー。
@@ -18,6 +42,16 @@ import { PetalAnimation } from "@/components/ui/PetalAnimation";
 export function Hero() {
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+
+  // 髪が風に揺れるループ動画（1.6MB）。全員に配ると重いので、
+  // 「PC幅 かつ モーション抑制なし かつ 省データ設定なし」のときだけ後載せする。
+  // SSR/ハイドレート時は false＝静止画から始まるので、不一致も起きない。
+  const isDesktop = useSyncExternalStore(
+    subscribeDesktop,
+    getDesktopSnapshot,
+    getServerSnapshot,
+  );
+  const showVideo = isDesktop && !reduced;
 
   useGSAP(
     () => {
@@ -79,6 +113,24 @@ export function Hero() {
             sizes="100vw"
             className="object-cover object-[68%_30%]"
           />
+
+          {/* 静止画の上に、髪が風で揺れるループ動画を重ねる。
+              読み込み中・非対象環境では下の静止画がそのまま見えるので
+              「何も映らない瞬間」が発生しない。object-position は静止画と揃える */}
+          {showVideo ? (
+            <video
+              className="hero-video absolute inset-0 h-full w-full object-cover object-[68%_30%]"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              tabIndex={-1}
+            >
+              <source src={asset("/images/hero/hero-motion.mp4")} type="video/mp4" />
+            </video>
+          ) : null}
         </div>
 
         {/* 左のコピーを読ませるための薄いベール。

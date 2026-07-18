@@ -126,4 +126,9 @@
   .petal {
     display: none;
   }
+
+  /* 髪ゆれ動画も止める。下に同じ構図の静止画があるので消すだけでよい */
+  .hero-video {
+    display: none;
+  }
 }
