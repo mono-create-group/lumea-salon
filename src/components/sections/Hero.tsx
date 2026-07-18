@@ -13,24 +13,34 @@ import { PetalAnimation } from "@/components/ui/PetalAnimation";
 /** navigator.connection は型定義に無いブラウザ拡張なので最小限だけ切り出す */
 type ConnectionInfo = { saveData?: boolean };
 
-const DESKTOP_QUERY = "(min-width: 1024px)";
-
-function subscribeDesktop(onChange: () => void): () => void {
-  const query = window.matchMedia(DESKTOP_QUERY);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
+/** 購読対象なし（省データ設定はセッション中に変わらない） */
+function subscribeNoop(): () => void {
+  return () => {};
 }
 
-/** PC幅かつ省データ設定でないときだけ true。SSR/ハイドレート時は false */
-function getDesktopSnapshot(): boolean {
+/** 省データ設定のときだけ false。SSR/ハイドレート時は false（静止画から開始） */
+function getClientSnapshot(): boolean {
   const connection = (navigator as Navigator & { connection?: ConnectionInfo })
     .connection;
-  if (connection?.saveData) return false;
-  return window.matchMedia(DESKTOP_QUERY).matches;
+  return !connection?.saveData;
 }
 
 function getServerSnapshot(): boolean {
   return false;
+}
+
+/**
+ * iOS Safari は DOM に muted 属性が無いと自動再生を拒否するが、
+ * React は muted をプロパティでしか設定しないことがある。
+ * ref で直接立てて play() まで自前で叩く（拒否されたら静止画のまま）。
+ */
+function startVideo(el: HTMLVideoElement | null): void {
+  if (!el) return;
+  el.muted = true;
+  el.defaultMuted = true;
+  el.play().catch(() => {
+    /* 低電力モード等で自動再生が拒否されたら、下の静止画が見えるだけ */
+  });
 }
 
 /**
@@ -43,15 +53,15 @@ export function Hero() {
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
-  // 髪が風に揺れるループ動画（1.6MB）。全員に配ると重いので、
-  // 「PC幅 かつ モーション抑制なし かつ 省データ設定なし」のときだけ後載せする。
+  // 髪が風に揺れるループ動画（1.6MB・スマホ含む全デバイスで再生）。
+  // 「モーション抑制」「省データ設定」のときだけ静止画に留める。
   // SSR/ハイドレート時は false＝静止画から始まるので、不一致も起きない。
-  const isDesktop = useSyncExternalStore(
-    subscribeDesktop,
-    getDesktopSnapshot,
+  const clientOk = useSyncExternalStore(
+    subscribeNoop,
+    getClientSnapshot,
     getServerSnapshot,
   );
-  const showVideo = isDesktop && !reduced;
+  const showVideo = clientOk && !reduced;
 
   useGSAP(
     () => {
@@ -119,12 +129,15 @@ export function Hero() {
               「何も映らない瞬間」が発生しない。object-position は静止画と揃える */}
           {showVideo ? (
             <video
+              ref={startVideo}
               className="hero-video absolute inset-0 h-full w-full object-cover object-[68%_30%]"
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
+              // 読み込み中も同じ絵を見せる（静止画→動画の切り替えを見せない）
+              poster={asset("/images/hero/hero.webp")}
               aria-hidden="true"
               tabIndex={-1}
             >
